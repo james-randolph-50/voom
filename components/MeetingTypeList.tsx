@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import HomeCard from './HomeCard'
 import { Router, useRouter } from 'next/router'
 import MeetingModal from './MeetingModal'
@@ -9,8 +9,12 @@ const MeetingTypeList = () => {
 
   // const router = useRouter();
 
+  const [meetingState, setMeetingState] = useState<
+  'isScheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined
+>(undefined);
+
   const createMeeting = () => {
-    
+
   }
   return (
     <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">

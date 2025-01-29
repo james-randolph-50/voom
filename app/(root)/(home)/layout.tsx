@@ -1,7 +1,15 @@
 import React, { ReactNode } from 'react'
 import Navbar from '@/components/ui/Navbar'
 import Sidebar from '@/components/ui/Sidebar'
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: "Voom - Video Conferencing",
+  description: "Video conferencing app built in NextJS",
+  icons: {
+    icon: '/icons/logo.svg'
+  }
+};
 
 const HomeLayout = ({children}:{children:ReactNode}) => {
   return (

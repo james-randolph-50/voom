@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import HomeCard from './HomeCard'
-// import { useRouter } from 'next/router'
 import { useRouter } from 'next/navigation'
 import MeetingModal from './MeetingModal'
 import { useUser } from '@clerk/nextjs'
@@ -10,6 +9,10 @@ import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk'
 import Loader from './Loader'
 import { Toast } from './ui/toast'
 import { useToast } from '@/hooks/use-toast'
+import { Textarea } from "@/components/ui/textarea"
+import ReactDatePicker from 'react-datepicker';
+
+
 
 const initialValues = {
   dateTime: new Date(),
@@ -97,12 +100,39 @@ const MeetingTypeList = () => {
       />
 
     {!callDetail ? (
-          <MeetingModal
-          isOpen={meetingState === 'isScheduleMeeting'}
-          onClose={() => setMeetingState(undefined)}
-          title="Create Meeting"
-          handleClick={createMeeting}
-        />
+                  <MeetingModal
+                  isOpen={meetingState === 'isScheduleMeeting'}
+                  onClose={() => setMeetingState(undefined)}
+                  title="Create Meeting"
+                  handleClick={createMeeting}
+                >
+                  <div className="flex flex-col gap-2.5">
+                    <label className="text-base font-normal leading-[22.4px] text-sky-2">
+                      Add a description
+                    </label>
+                    <Textarea
+                      className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      onChange={(e) =>
+                        setValues({ ...values, description: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="flex w-full flex-col gap-2.5">
+                    <label className="text-base font-normal leading-[22.4px] text-sky-2">
+                      Select Date and Time
+                    </label>
+                    <ReactDatePicker
+                      selected={values.dateTime}
+                      onChange={(date) => setValues({ ...values, dateTime: date! })}
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                      timeIntervals={15}
+                      timeCaption="time"
+                      dateFormat="MMMM d, yyyy h:mm aa"
+                      className="w-full rounded bg-dark-3 p-2 focus:outline-none"
+                    />
+                  </div>
+                </MeetingModal>
     ) : (
         <MeetingModal
             isOpen={meetingState === 'isScheduleMeeting'}
